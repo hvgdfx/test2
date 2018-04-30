@@ -1,4 +1,4 @@
-
+#coding=utf-8
 
 class Node(object):
 
@@ -7,7 +7,7 @@ class Node(object):
         self.next = None
 
 
-class SingleCurList(object):
+class SingleCycleList(object):
     def __init__(self, node = None):
         self.__head = node
         if node:
@@ -77,13 +77,29 @@ class SingleCurList(object):
             cur.next = node
 
     def remove(self, item):
+        if self.is_empty():
+            return
         cur = self.__head
         pre = None
         while cur.next != self.__head:
             if cur.elem == item:
-                pre.next = cur.next
-            pre = cur
-            cur = cur.next
+                if self.__head == cur:
+                    #头结点
+                    rear = self.__head
+                    while rear != self.__head:
+                        rear = rear.next
+                    rear.next = cur.next
+                    self.__head = cur.next
+                else:
+                    #中间结点
+                    pre.next = cur.next
+                break
+            else:
+                pre = cur
+                cur = cur.next
+        #尾结点
+        if cur.elem == item:
+            pre.next = cur.next
 
     def search(self, item):
         if self.is_empty():
@@ -102,7 +118,29 @@ class SingleCurList(object):
 
 
 if __name__ == '__main__':
-    a = Node(100)
+    l1 = SingleCycleList()
+    print(l1.is_empty())
+    print(l1.length())
 
+    l1.append(1)
+    print(l1.is_empty())
+    print(l1.length())
+
+    l1.append(2)
+    l1.append(3)
+    l1.append(4)
+    l1.append(5)
+    l1.append(6)
+
+    l1.insert(-1, 9)
+    l1.travel()
+    l1.insert(3, 100)
+    l1.travel()
+    l1.insert(10,200)
+    l1.travel()
+    l1.remove(9)
+    l1.travel()
+    l1.remove(200)
+    l1.travel()
 
 
