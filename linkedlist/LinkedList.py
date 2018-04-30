@@ -40,10 +40,13 @@ class SingleLinkedList(object):
         pass
 
     def append(self, item):
-        cur = self.__head
-        while cur.next != None:
-            cur = cur.next
-        cur.next = Node(item)
+        if self.__head == None:
+            self.__head = Node(item)
+        else:
+            cur = self.__head
+            while cur.next != None:
+                cur = cur.next
+            cur.next = Node(item)
 
     def insert(self, pos, item):
         pass
@@ -58,14 +61,17 @@ class SingleLinkedList(object):
 if __name__ == '__main__':
     print('--------------------------')
     node = Node(100)
-    singlelist = SingleLinkedList(node)
+    #singlelist = SingleLinkedList(node)
+    singlelist = SingleLinkedList()
     singlelist.append(200)
+
+
     print('is empty: %s' %(singlelist.is_empty()))
     print('the length is %s' %(singlelist.length()))
-    # singlelist.length()
+
+
 
     print('--travel begin--')
     print(singlelist.travel())
     print('--travel end----')
-    print(node.next)
 
