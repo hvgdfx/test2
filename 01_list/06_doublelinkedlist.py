@@ -1,6 +1,6 @@
 
 class Node(object):
-    def __init__(self, item)
+    def __init__(self, item):
 	self.elem = item
 	self.prev = None
 	self.next = None
@@ -25,7 +25,18 @@ class DoubleLinkList(object):
     def append(self, item):
 	pass
 
+    def insert(self, pos, item):
+	pass
 
-if __name == '__main__':
+    def remove(self, item):
+	pass
 
-    dll = DoubleLinkList()
+
+
+if __name__ == '__main__':
+
+    node = Node(100)
+    dll = DoubleLinkList(node)
+
+
+
