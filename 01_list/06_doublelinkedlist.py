@@ -11,9 +11,19 @@ class DoubleLinkList(object):
 	self.__head = node
 
     def is_empty(self):
-	return self.__head == None
+	return self.__head is None
 
-    def 
+    def length(self):
+	pass
+
+    def travel(self):
+	pass
+
+    def add(self, item):
+	pass
+
+    def append(self, item):
+	pass
 
 
 if __name == '__main__':
