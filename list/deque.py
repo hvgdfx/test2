@@ -1,13 +1,19 @@
 
-class Queue(object):
+class Deque(object):
 
     def __init__(self):
 	self.__item = []
 
-    def enqueue(self, elem):
+    def add_front(self, elem):
+        self.__item.insert(0, elem)
+
+    def add_rear(self, elem):
 	self.__item.append(elem)
 
-    def dequeue(self):
+    def pop_front(self):
+	self.__item.pop(0)
+
+    def pop_rear(self):
         self.__item.pop()
 
     def is_empty(self):
@@ -17,10 +23,10 @@ class Queue(object):
 	return len(self.__item)
 
 if __name__ == '__main__':
-    queue = Queue()
+    queue = Deque()
     print(queue.is_empty())
     print(queue.size())
 
-    queue.enqueue(100)
+    queue.add_front(100)
     print(queue.is_empty())
     print(queue.size())

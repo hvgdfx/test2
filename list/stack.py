@@ -30,5 +30,6 @@ if __name__ == '__main__':
     stack.push(100)
     stack.pop()
 
+    print("success")
 
-
+    print(stack.is_empty())
