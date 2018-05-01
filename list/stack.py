@@ -17,7 +17,7 @@ class Stack(object):
 	    return None
 		
     def is_empty(self):
-	return len(self.__item) == 0
+	return self.__item == []
 
     def size(self):
 	return len(self.__item)
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     stack.is_empty()
 
     stack.push(100)
-
+    stack.pop()
 
 
 
