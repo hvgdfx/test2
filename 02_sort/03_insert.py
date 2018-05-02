@@ -18,3 +18,5 @@ if __name__ == '__main__':
     alist2 = [10, 100, 2, 5, 9, 21, 49, 300, 41]
     print(alist2)
     print(insert_sort(alist2))
+
+
