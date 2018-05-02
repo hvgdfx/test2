@@ -1,10 +1,12 @@
 #coding=utf-8
 
 def select_sort(alist):
-    for i in range(len(alist)):
-	mini = alist[i]
-	for j in range(i, len(alist)):
-	    
+    for i in range(len(alist)-1):
+	index = i
+	for j in range(i+1, len(alist)):
+	    if alist[index] < alist[i]:
+		index = j
+	alist[i], alist[index] = alist[index], alist[j]
     return alist
 	
 if __name__ == '__main__':
