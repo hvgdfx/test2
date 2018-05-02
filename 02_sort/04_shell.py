@@ -3,13 +3,15 @@
 def shell_sort(alist):
     gap = len(alist)/2
     print("gap: %s" %gap)
-    for i in range(gap, len(alist)):
-	while i > 0:
-	    if alist[i] < alist[i-gap]:
-	    	alist[i], alist[i-gap] = alist[i-gap], alist[i]
-	        i -= gap	
-	    else:
-		break
+    while gap>0:
+    	for i in range(gap, len(alist)):
+	    while i > 0:
+	        if alist[i] < alist[i-gap]:
+		    alist[i], alist[i-gap] = alist[i-gap], alist[i]
+		    i -= gap	
+	        else:
+		    break
+	gap /=2
     return alist
 	
 if __name__ == '__main__':
