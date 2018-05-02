@@ -2,13 +2,12 @@
 
 def insert_sort(alist):
     for i in range(1, len(alist)):
-	if alist[i-1] > alist[i]:
-	    pos = i
-	    temp = alist[i]
-	    while pos>0 and alist[pos-1] > temp:
-		alist[pos] = alist[pos-1]
-		pos -= 1
-	    alist[pos] = temp
+	while i > 0:
+	    if alist[i] < alist[i-1]:
+		alist[i-1], alist[i] = alist[i], alist[i-1]
+	    	i -= 1
+	    else:
+		break
     return alist
 	
 if __name__ == '__main__':

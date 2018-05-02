@@ -1,14 +1,15 @@
 #coding=utf-8
 
 def shell_sort(alist):
-    for i in range(1, len(alist)):
-	if alist[i-1] > alist[i]:
-	    pos = i
-	    temp = alist[i]
-	    while pos>0 and alist[pos-1] > temp:
-		alist[pos] = alist[pos-1]
-		pos -= 1
-	    alist[pos] = temp
+    gap = len(alist)/2
+    print("gap: %s" %gap)
+    for i in range(gap, len(alist)):
+	while i > 0:
+	    if alist[i] < alist[i-gap]:
+	    	alist[i], alist[i-gap] = alist[i-gap], alist[i]
+	        i -= gap	
+	    else:
+		break
     return alist
 	
 if __name__ == '__main__':
