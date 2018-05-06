@@ -6,7 +6,7 @@ class Node(object):
 	self.next = None
 
 class Tree(object):
-    def __init__(self, node=None):
+    def __init__(self):
 	self.tree = []
 	self.lchild = None
 	self.rchild = None
@@ -14,9 +14,13 @@ class Tree(object):
     def add(self, item):
 	node = Node(item)
 	if self.lchild == None:
-	    
+	    self.lchild = node
+	if self.rchild == None:
+	    self.rchild = node	    	    
+	
 
-    def bread_order(self):
+
+    def breath_order(self):
 	pass
 
     def pre_order(self):
@@ -31,5 +35,9 @@ class Tree(object):
 if __name__ == '__main__':
     tree = Tree()
     print('build a tree')
+
+    tree.add('a')
+
+
 
 
