@@ -1,6 +1,6 @@
 
 class Node(object):
-    def __init__(self, item):
+    def __init__(self, item=None):
 	self.elem = item
 	self.prev = None
 	self.next = None

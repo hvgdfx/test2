@@ -24,3 +24,4 @@ if __name__ == '__main__':
     queue.enqueue(100)
     print(queue.is_empty())
     print(queue.size())
+
