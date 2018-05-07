@@ -4,6 +4,6 @@
 2./etc/paths	系统级别
 3.~/.bash_profile	用户级别
 
-
+pip install --target=d:\somewhere\other\than\the\default package_name
 
 
