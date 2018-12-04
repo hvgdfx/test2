@@ -10,7 +10,7 @@
 
 ### install pip3
 1. 关键是bin的路径得选好
-Reference:https://www.cnblogs.com/dongml/p/8719421.html
+2. Reference:https://www.cnblogs.com/dongml/p/8719421.html
 
 ### vim
 #### 增加行号
