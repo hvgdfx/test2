@@ -2,7 +2,7 @@
 ### install python
 1. wget https://www.python.org/ftp/python/3.5.6/Python-3.5.6.tar.xz
 2. tar xvJf *.tar.xz
-3. ./configure --prefix=<font color=#FF0000>/opt/python3.5</font> --enable-shared  #这个路径很关键，是bin的调用路径 
+3. ./configure --prefix= <font color=#FF0000>/opt/python3.5</font> --enable-shared  #这个路径很关键，是bin的调用路径 
 4. make
 5. make install
 6. ln -s /usr/python3.5/bin/python3 /usr/bin/python3  #创建软链接
