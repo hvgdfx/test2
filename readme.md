@@ -13,7 +13,7 @@
 2. Reference:https://www.cnblogs.com/dongml/p/8719421.html
 
 ### vim
-#### 增加行号
+##### 增加行号
 1. vim ./.vimrc
 2. :set nu
 
