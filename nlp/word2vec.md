@@ -5,6 +5,3 @@
 4. hidden -> output: 没有用softmax，因为softmax增加计算量，用huffman tree
 5. how to fp
 6. how to bp
-    1. xxx
-    2. 嘻嘻嘻
-    3. 测试多级有序列表
