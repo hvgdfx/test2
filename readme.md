@@ -23,3 +23,8 @@
 
 ### django
 1. 
+
+### Linux命令
+1. reboost 重启
+2.
+

@@ -12,6 +12,7 @@ pandas
 django
 tqdm
 gensim
+pymysql
 
 
 
