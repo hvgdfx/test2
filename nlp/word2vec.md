@@ -5,4 +5,4 @@
 4. hidden -> output: 没有用softmax，因为softmax增加计算量，用huffman tree
 5. how to fp
 6. how to bp
-  - no 
+    1. xxx
