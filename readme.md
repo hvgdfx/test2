@@ -29,3 +29,7 @@
 1. reboost 重启
 2.
 
+### Windows
+1. conda
+2. activate learn
+3. deactivate learn
