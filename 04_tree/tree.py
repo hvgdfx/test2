@@ -2,16 +2,16 @@
 
 class Node(object):
     def __init__(self, item):
-	self.elem = item
+    self.elem = item
 	self.lchild = None
 	self.rchild = None
 
 class Tree(object):
-    def __init__(self):
+	def __init__(self):
 	self.root = None
 
     def add(self, item):
-	node = Node(item)
+		node = Node(item)
 	if self.root == None:
 	    self.root = node
 	    return 
