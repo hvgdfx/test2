@@ -33,3 +33,6 @@
 1. conda
 2. activate learn
 3. deactivate learn
+
+### git 
+* git fetch --all && git reset --hard origin/master && git pull #远程覆盖本地
