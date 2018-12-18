@@ -2,6 +2,7 @@
 
 import tensorflow as tf
 import numpy as np
+import matplotlib.pyplot as plt
 
 
 # set config
@@ -38,7 +39,8 @@ def sigmoid(x):
     return 1 / (1 + np.exp(-x))
 
 def softmax(x):
-    return 0
+    a, b = x.shape
+    return np.exp(x)/np.exp(x).sum(axis=1).reshape(a, 1)
 
 # forward-prop
 
@@ -52,10 +54,24 @@ h2 = softmax(a2)
 
 
 
+# plot loss
 
+def plot_loss(x):
+    pass
+
+
+from sklearn.metrics import log_loss
+
+# run server
 
 if __name__ == '__main__':
-    print(train_x)
+    a = np.random.rand(3, 2)
+    b = np.exp(a)
+    print(a)
+    print(b)
+    c = np.exp(a).sum(axis=1).reshape(3, 1)
+    print(c)
+    print(h2)
 
 
 
