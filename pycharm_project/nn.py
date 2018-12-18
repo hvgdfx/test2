@@ -35,14 +35,16 @@ b2 = np.random.rand(weight1_dim, 1)
 
 # define function
 
+
 def sigmoid(x):
     return 1 / (1 + np.exp(-x))
+
 
 def softmax(x):
     a, b = x.shape
     return np.exp(x)/np.exp(x).sum(axis=1).reshape(a, 1)
 
-# forward-prop
+# forward-propagete
 
 a1 = np.dot(train_x, weight1)
 h1 = sigmoid(a1)
@@ -53,8 +55,17 @@ h2 = softmax(a2)
 # define loss
 
 
+def log_loss(y_true, y_pred):
+    from sklearn.metrics import log_loss
+    return log_loss(y_true, y_pred)
+
+
+# back-progagete
+
+
 
 # plot loss
+
 
 def plot_loss(x):
     pass
