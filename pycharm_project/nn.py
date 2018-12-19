@@ -21,9 +21,12 @@ train_x1 = np.random.rand(train_x1_num, train_dim)
 train_x0 = np.random.rand(train_x0_num, train_dim)*10
 train_x = np.vstack((train_x1, train_x0))
 
-train_y1 = np.ones([train_x1_num, 1])
-train_y0 = np.zeros([train_x0_num, 1])
-train_y = np.vstack((train_y1, train_y0))
+#train_y1 = np.ones([train_x1_num, 1])
+train_y1 = [1] * train_x1_num
+#train_y0 = np.zeros([train_x0_num, 1])
+train_y0 = [0] * train_x0_num
+#train_y = np.vstack((train_y1, train_y0))
+train_y = train_y1 + train_y0
 
 # generate weight
 
@@ -52,11 +55,27 @@ h1 = sigmoid(a1)
 a2 = np.dot(h1, weight2)
 h2 = softmax(a2)
 
+def binaray(x):
+    char_2_in = dict((c, i) for i, c in enumerate(set(x)))
+    in_2_char = dict((i, c) for i, c in enumerate(set(x)))
+    output = np.zeros([train_num, len(set(x))])
+    for i in range(train_num):
+        output[i, char_2_in[x[i]]] = 1
+    return output
+
+
+for i in range(2):
+    print('--------------{0}--------------'.format(i))
+
+
+# caculate loss
+
+
 
 # back-progagete
 
 
-dJdA2 = np.multiply(-1*h2[:, 1], h2*(1-h2))
+#dJdA2 = np.multiply(-1*h2[:, 1], h2*(1-h2))
 
 from sklearn.metrics import log_loss
 
@@ -64,10 +83,11 @@ from sklearn.metrics import log_loss
 # run server
 
 if __name__ == '__main__':
-    print(h1)
-    print(a2)
-    print(h2)
-    print(h2[:, 1])
+    print(np.multiply((binaray(train_y)-h2),binaray(train_y)))
+    # print(train_y)
+    # print(h2)
+    # print()
+    # print(h2[:, 1] - train_y)
 
 
 
