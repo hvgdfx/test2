@@ -52,38 +52,22 @@ h1 = sigmoid(a1)
 a2 = np.dot(h1, weight2)
 h2 = softmax(a2)
 
-# define loss
-
-
-def log_loss(y_true, y_pred):
-    from sklearn.metrics import log_loss
-    return log_loss(y_true, y_pred)
-
 
 # back-progagete
 
 
-
-# plot loss
-
-
-def plot_loss(x):
-    pass
-
+dJdA2 = np.multiply(-1*h2[:, 1], h2*(1-h2))
 
 from sklearn.metrics import log_loss
+
 
 # run server
 
 if __name__ == '__main__':
-    a = np.random.rand(3, 2)
-    b = np.exp(a)
-    print(a)
-    print(b)
-    c = np.exp(a).sum(axis=1).reshape(3, 1)
-    print(c)
+    print(h1)
+    print(a2)
     print(h2)
-
+    print(h2[:, 1])
 
 
 
