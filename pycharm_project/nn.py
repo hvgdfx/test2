@@ -58,7 +58,8 @@ h2 = softmax(a2)
 def binaray(x):
     char_2_in = dict((c, i) for i, c in enumerate(set(x)))
     in_2_char = dict((i, c) for i, c in enumerate(set(x)))
-    output = np.zeros([train_num, len(set(x))])
+    # output = np.zeros([train_num, len(set(x))])
+    output = np.array([[1e-15] * len(set(x))] * train_num)
     for i in range(train_num):
         output[i, char_2_in[x[i]]] = 1
     return output
@@ -80,10 +81,42 @@ for i in range(2):
 from sklearn.metrics import log_loss
 
 
+
+# tf
+
+def tf_implement():
+    import tensorflow as tf
+    from tensorflow import keras
+
+    fashion_mnist = keras.datasets.fashion_mnist
+    (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
+    class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
+                   'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
+
+    train_images = train_images / 255.0
+    test_images = test_images / 255.0
+
+    model = keras.Sequential([
+        keras.layers.Flatten(input_shape=(28, 28)),
+        keras.layers.Dense(128, activation=tf.nn.relu),
+        keras.layers.Dense(10, activation=tf.nn.softmax)
+    ])
+
+    model.compile(optimizer=tf.train.AdamOptimizer(),
+                  loss='sparse_categorical_crossentropy',
+                  metrics=['accuracy'])
+
+    model.fit(train_images, train_labels, epochs=5, batch_size=100)
+
+    test_loss, test_acc = model.evaluate(test_images, test_labels)
+
+    print(test_loss, test_acc)
+
 # run server
 
 if __name__ == '__main__':
-    print(np.multiply((binaray(train_y)-h2),binaray(train_y)))
+    # print(np.multiply((binaray(train_y)-h2),binaray(train_y)))
+    # print(binaray(train_y))
     # print(train_y)
     # print(h2)
     # print()

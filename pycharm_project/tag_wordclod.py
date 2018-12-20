@@ -10,33 +10,39 @@ import matplotlib.pyplot as plt
 
 # data processing
 
-# def processing():
-#     text = open('D:/zgx/zgx/pycharm_project/text3.txt').read()
+# def processing1():
+#     text1 = open('C:/Users/zhanggx/Desktop/text.txt', encoding='utf-8').readlines()
 #     adict = {}
-#     for i in text.strip('').replace('\n', '').split(' '):
-#         if i not in adict.keys():
-#             adict[i] = 1
+#     for line in text1:
+#         tag, weight = line.replace(' ', '').replace('\n', '').split('\t')
+#         if len(weight) == 0:
+#             adict[tag] = 0
 #         else:
-#             adict[i] += 1
+#             adict[tag] = float(weight)
 #     return adict
 
 
 def processing2():
-    text1 = open('C:/Users/zhanggx/Desktop/text.txt', encoding='utf-8').readlines()
+    text1 = open('D:/zgx/zgx/pycharm_project/text3.txt', encoding='utf-8').readlines()
     adict = {}
     for line in text1:
-        tag, weight = line.replace(' ', '').replace('\n', '').split('\t')
-        if len(weight) == 0:
-            adict[tag] = 0
+        tag_score  = line.replace(' ', '').replace('\n', '').split('\t')
+        if len(tag_score) == 2:
+            adict[tag_score[0]] = float(tag_score[1])
         else:
-            adict[tag] = float(weight)
+            adict[tag_score[0]] = 0
     return adict
+
 
 # create wordclout
 def creatWordCloud(adict):
     font_path = 'D:/Downloads/msyh.ttf'
     wc = WordCloud(max_words=200,
                    mask=None,
+                   width = 600,
+                   height = 600,
+                   max_font_size = 68,
+                   min_font_size = 4,
                    font_path=font_path,
                    )
     wc.generate_from_frequencies(adict)
