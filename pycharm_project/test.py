@@ -1,114 +1,105 @@
+#
+# import tensorflow as tf
+#
+# path_to_file = tf.keras.utils.get_file('shakespeare.txt', 'https://storage.googleapis.com/download.tensorflow.org/data/shakespeare.txt')
+#
+# text = open(path_to_file).read()
+#
+# print(type(text))
+#
+#
+#coding:utf-8
 from __future__ import print_function
 
-import tensorflow as tf
-from tensorflow import keras
-#
-fashion_mnist = keras.datasets.fashion_mnist
-# (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
-# class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
-#                'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot']
-#
-# train_images = train_images / 255.0
-# test_images = test_images / 255.0
-
-#
-#
-# model = keras.Sequential([
-#     keras.layers.Flatten(input_shape=(28, 28)),
-#     keras.layers.Dense(128, activation=tf.nn.relu),
-#     keras.layers.Dense(10, activation=tf.nn.softmax)
-# ])
-#
-# model.compile(optimizer=tf.train.AdamOptimizer(),
-#               loss='sparse_categorical_crossentropy',
-#               metrics=['accuracy'])
-#
-# model.fit(train_images, train_labels, epochs=5, batch_size=100)
-#
-#
-# test_loss, test_acc = model.evaluate(test_images, test_labels)
-#
-# print(test_loss, test_acc)
-# print(type(train_images))
-# print('finish')
-
-
-# rnn
-#
-# modelRnn = keras.Sequential([
-#     # keras.layers.Flatten(input_shape=[28, 28]),
-#     keras.layers.SimpleRNN(10, input_shape=(1, 1, 2)),
-#     keras.layers.Dense(10, activation=tf.nn.softmax)
-# ])
-#
-#
-# modelRnn.compile(
-#     optimizer=tf.train.AdamOptimizer(),
-#     loss = 'sparse_categorical_crossentropy',
-#     metrics = ['accuracy']
-# )
-#
-#
-# modelRnn.fit(train_images, train_labels, epochs=5)
-
-
-import keras
-from keras.datasets import mnist
-from keras.models import Sequential
 from keras.layers import Dense, Activation
-from keras.layers import SimpleRNN
-from keras import initializers
-from keras.optimizers import RMSprop
+from keras.layers.recurrent import SimpleRNN
+from keras.models import Sequential
+from keras.utils.vis_utils import plot_model
+import numpy as np
 
-batch_size = 50
-num_classes = 10
-epochs = 5
-hidden_units = 50
 
-# the data, shuffled and split between train and test sets
-(x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
+def process_txt(open_path):
+    with open(open_path, 'r', encoding='utf-8') as f:
+        lines = []
+        for line in f:
+            line = line.strip().lower()
+            # line = line.decode("ascii", "ignore")
+            if 0 == len(line):
+                continue
+            lines.append(line)
+    text = ' '.join(lines)
+    return text
 
-x_train = x_train.reshape(-1, 28, 28)
-x_test = x_test.reshape(-1, 28, 28)
-x_train = x_train.astype('float32')
-x_test = x_test.astype('float32')
-x_train /= 255
-x_test /= 255
-print('x_train shape:', x_train.shape)
-print(x_train.shape[0], 'train samples')
-print(x_test.shape[0], 'test samples')
+text = process_txt('hongloumeng.txt')
 
-# convert class vectors to binary class matrices
-y_train = keras.utils.to_categorical(y_train, num_classes)
-y_test = keras.utils.to_categorical(y_test, num_classes)
+len(text)
 
-print('Evaluate RNN...')
+
+
+chars = set([c for c in text])
+chars_count = len(chars)
+char2index = dict((c, i) for i, c in enumerate(chars))
+index2char = dict((i, c) for i, c in enumerate(chars))
+
+
+SEQLEN = 10
+STEP = 1
+input_chars = []
+label_chars = []
+for  i in range(0, len(text) - SEQLEN, STEP):
+    input_chars.append(text[i:i+SEQLEN])
+    label_chars.append(text[i+SEQLEN])
+
+
+X = np.zeros((len(input_chars), SEQLEN, chars_count), dtype=np.bool)
+Y = np.zeros((len(input_chars), chars_count), dtype=np.bool)
+for i,input_char in enumerate(input_chars):
+    for j,c in enumerate(input_char):
+        X[i, j, char2index[c]] = 1
+    Y[i, char2index[label_chars[i]]] = 1
+
+
+
+HIDDEN_SIZE = 128
+BATCH_SIZE = 128
+NUM_ITERATIONS = 1000
+NUM_EPOCHS_PER_ITERATION = 1
+NUM_PREDS_PER_EPOCH = 100
+
 model = Sequential()
-model.add(SimpleRNN(hidden_units,
-                    kernel_initializer=initializers.RandomNormal(stddev=0.001),
-                    recurrent_initializer=initializers.Identity(gain=1.0),
-                    activation='relu',
-                    input_shape=x_train.shape[1:]))
-model.add(Dense(num_classes))
-model.add(Activation('softmax'))
-rmsprop = RMSprop()
-model.compile(loss='categorical_crossentropy',
-              optimizer=rmsprop,
-              metrics=['accuracy'])
-
-model.fit(x_train, y_train,
-          batch_size=batch_size,
-          epochs=epochs,
-          verbose=1,
-          validation_data=(x_test, y_test))
-
-scores = model.evaluate(x_test, y_test, verbose=0)
-
-print('RNN test score:', scores[0])
-print('RNN test accuracy:', scores[1])
+model.add(SimpleRNN(HIDDEN_XSIZE, return_sequences=False,
+                    input_shape=(SEQLEN, chars_count),unroll=True))
+model.add(Dense(chars_count))
+model.add(Activation("softmax"))
+model.compile(loss="categorical_crossentropy", optimizer="rmsprop")
 
 
 
+for iteration in range(NUM_ITERATIONS):
+    print('Iteration : %d'%iteration)
+    model.fit(X, Y, batch_size=BATCH_SIZE, epochs=NUM_EPOCHS_PER_ITERATION)
+    # 训练1epoch,测试一次
+    test_idx = np.random.randint(len(input_chars))
+    test_chars = input_chars[test_idx]
+    print('test seed is : %s'%test_chars)
+    print(test_chars,end='')
+    for i in range(NUM_PREDS_PER_EPOCH):
+        # 测试序列向量化
+        vec_test = np.zeros((1, SEQLEN, chars_count))
+        for i, ch in enumerate(test_chars):
+            vec_test[0, i, char2index[ch]] = 1
+        pred = model.predict(vec_test, verbose=0)[0]
+        pred_char = index2char[np.argmax(pred)]
+        print(pred_char,end='')
+        # 不断的加入新生成字符组成新的序列
+        test_chars = test_chars[1:] + pred_char
+    print('\n')
 
 
 
+#
+# classes = model.predict(X, batch_size=1)
+# print('--------------------------')
+# print(X.shape)
+# print(classes.shape)
+# print('--------------------------')
