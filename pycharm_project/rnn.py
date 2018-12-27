@@ -25,7 +25,7 @@ modelRnn.compile(
 )
 
 
-modelRnn.fit(train_images, train_labels, epochs=30, batch_size=32)
+modelRnn.fit(train_images, train_labels, epochs=30, batch_size=128)
 
 
 test_loss, test_acc = modelRnn.evaluate(test_images, test_labels)
