@@ -39,8 +39,8 @@ def creatWordCloud(adict):
     font_path = 'D:/Downloads/msyh.ttf'
     wc = WordCloud(max_words=200,
                    mask=None,
-                   width = 600,
-                   height = 600,
+                   width = 200,
+                   height = 100,
                    max_font_size = 68,
                    min_font_size = 4,
                    font_path=font_path,

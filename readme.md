@@ -36,3 +36,7 @@
 
 ### git 
 * git fetch --all && git reset --hard origin/master && git pull #远程覆盖本地
+
+
+### Pycharm
+注册：https://blog.csdn.net/u014044812/article/details/78727496
